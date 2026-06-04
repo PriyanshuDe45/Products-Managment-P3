@@ -9,11 +9,11 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete();
-            $table->string('name_en');
-            $table->string('name_fr');
+            $table->string('name_en',200);
+            $table->string('name_fr',200);
             $table->text('description_en')->nullable();
             $table->text('description_fr')->nullable();
-            $table->string('brand')->nullable();
+            $table->string('brand',50)->nullable();
             $table->string('country_of_origin')->nullable();
             $table->decimal('gross_weight', 8, 3)->nullable();
             $table->decimal('net_weight', 8, 3)->nullable();

@@ -14,12 +14,14 @@ class companiesController extends Controller
         return view('companies.index', compact('companies'));
     }
 
-    public function deactivated(){
+    public function deactivated()
+    {
         $companies = Company::where('is_active', false)->get();
         return view('companies.deactivated', compact('companies'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('companies.create');
     }
 
@@ -29,7 +31,7 @@ class companiesController extends Controller
         $company = Company::create($request->only('name', 'address', 'telephone', 'email'));
 
         $company->people()->createMany([
-            ['type' => 'owner',   'name' => $request->owner_name,   'mobile' => $request->owner_mobile,   'email' => $request->owner_email],
+            ['type' => 'owner', 'name' => $request->owner_name, 'mobile' => $request->owner_mobile, 'email' => $request->owner_email],
             ['type' => 'contact', 'name' => $request->contact_name, 'mobile' => $request->contact_mobile, 'email' => $request->contact_email],
         ]);
 
