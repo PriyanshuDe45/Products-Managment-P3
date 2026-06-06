@@ -1,35 +1,45 @@
 <?php
-
 namespace App\Http\Resources;
 
-use App\Models\products;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin products */
 class productsResource extends JsonResource
 {
-    public function toArray(Request $request)
+    public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'name_fr' => $this->name_fr,
-            'desc' => $this->desc,
-            'desc_fr' => $this->desc_fr,
-            'brand' => $this->brand,
-            'country' => $this->country,
-            'gross' => $this->gross,
-            'net' => $this->net,
-            'weight' => $this->weight,
-            'gtin' => $this->gtin,
-            'image_path' => $this->image_path,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-
-            'companies_id' => $this->companies_id,
-
-            'companies' => new companiesResource($this->whenLoaded('companies')),
+            'name' => [
+                'en' => $this->name_en,
+                'fr' => $this->name_fr,
+            ],
+            'description' => [
+                'en' => $this->description_en,
+                'fr' => $this->description_fr,
+            ],
+            'gtin'            => $this->gtin,
+            'brand'           => $this->brand,
+            'countryOfOrigin' => $this->country_of_origin,
+            'weight' => [
+                'gross' => (float) $this->gross_weight,
+                'net'   => (float) $this->net_weight,
+                'unit'  => $this->weight_unit,
+            ],
+            'company' => [
+                'companyName'      => $this->company->name,
+                'companyAddress'   => $this->company->address,
+                'companyTelephone' => $this->company->telephone,
+                'companyEmail'     => $this->company->email,
+                'owner' => [
+                    'name'         => $this->company->owner->name,
+                    'mobileNumber' => $this->company->owner->mobile,
+                    'email'        => $this->company->owner->email,
+                ],
+                'contact' => [
+                    'name'         => $this->company->contact->name,
+                    'mobileNumber' => $this->company->contact->mobile,
+                    'email'        => $this->company->contact->email,
+                ],
+            ],
         ];
     }
 }

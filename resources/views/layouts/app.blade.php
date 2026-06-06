@@ -14,7 +14,7 @@
     <div>
         <a href="{{route('company.index')}}" class="btn btn-sm btn-outline-light me-2">Companies</a>
         <a href="/products" class="btn btn-sm btn-outline-light me-2">Products</a>
-        <form action="{{route('logout')}}" class="d-inline">
+        <form method="POST" action="{{ route('logout') }}" class="d-inline">
             @csrf
             <button class="btn btn-sm btn-danger">Logout</button>
         </form>

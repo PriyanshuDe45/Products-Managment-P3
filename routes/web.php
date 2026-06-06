@@ -26,11 +26,17 @@ Route::middleware('admin')->group(function () {
     Route::get('/products', [productsController::class, 'index'])->name('product.index');
     Route::get('/products/new', [productsController::class, 'create'])->name('product.create');
     Route::post('/products', [productsController::class, 'store'])->name('product.store');
-    Route::get('/products/{product}', [productsController::class, 'show'])->name('product.show');
-    Route::get('/products/{product}/edit', [productsController::class, 'edit'])->name('product.edit');
-    Route::put('/products/{product}', [productsController::class, 'update'])->name('product.update');
-    Route::delete('/products/{product}', [productsController::class, 'destroy'])->name('product.destroy');
+    Route::get('/products/{gtin}', [productsController::class, 'show'])->name('product.show');
+    Route::put('/products/{gtin}', [productsController::class, 'update'])->name('product.update');
+    Route::post('/products/{gtin}/hide', [productsController::class, 'hide'])->name('product.hide');
+    Route::delete('/products/{gtin}', [productsController::class, 'destroy'])->name('product.destroy');
 });
 
+
+Route::get('/products.json', [productsController::class, 'apiIndex'])->name('api.products');
+Route::get('/products/{gtin}.json', [productsController::class, 'apiShow'])->name('api.product');
+Route::get('/verify',[productsController::class, 'verifyForm'])->name('verify');
+Route::post('/verify',[productsController::class, 'verify'])->name('verify.post');
+Route::get('/01/{gtin}',[productsController::class, 'publicShow'])->name('product.public');
 
 
